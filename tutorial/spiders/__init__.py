@@ -26,6 +26,8 @@ class NewsSpider(scrapy.Spider):
             n = n + 1
             m = 1
             xpath1 = "//*[@id='post-area']/div/div/div["+ str(n) + "]/div["+ str(m)+ "]/a"
-
+        next_page = response.css('#pagination > div.next > a::attr(href)').get()
+        if next_page is not (None):
+            yield response.follow(next_page, callback=self.parse)
 #//*[@id="post-area"]/div/div/div[1]/div[1]/a/div/div[2]/h3
 #//*[@id="post-area"]/div/div/div[1]/div[1]/a/div/div[2]/span
